@@ -14,9 +14,7 @@ namespace SeedStorm.CoreApi.Entities.Node
         public Guid Id { get; set; }
         public string CommonName { get; set; }
         public int Owner { get; set; }
-        [ForeignKey("Template")]
-        public int TemplateId { get; set; }
-        public NodeTemplate Template { get; set; }
+        public string Template { get; set; }
         public NodeState State { get; set; }
     }
 }
