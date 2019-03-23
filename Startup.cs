@@ -48,7 +48,18 @@ namespace SeedStorm.CoreApi
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "SeedStorm.io", Version = "v1" });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "SeedStorm.io",
+                    Description = "Official SeedStorm.io Core Api",
+                    Contact = new Contact()
+                    {
+                        Name = "Contact SeedStorm.io",
+                        Email = "contact@seedstorm.io",
+                        Url = "https://seedstorm.io"
+                    },
+                    Version = "v1"
+                });
             });
         }
 
