@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SeedStorm.CoreApi.Entities;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SeedStorm.CoreApi
 {
@@ -44,6 +45,11 @@ namespace SeedStorm.CoreApi
             services.AddDistributedMemoryCache();
 
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "SeedStorm.io", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -56,6 +62,13 @@ namespace SeedStorm.CoreApi
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SeedStorm.io Core Api");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();
