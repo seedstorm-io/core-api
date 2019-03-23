@@ -1,0 +1,22 @@
+﻿using SeedStorm.CoreApi.Entities.NodeCatalog;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SeedStorm.CoreApi.Entities.Node
+{
+    public class Node
+    {
+        [Key]
+        public Guid Id { get; set; }
+        public string CommonName { get; set; }
+        public int Owner { get; set; }
+        [ForeignKey("Template")]
+        public int TemplateId { get; set; }
+        public NodeTemplate Template { get; set; }
+        public NodeState State { get; set; }
+    }
+}
