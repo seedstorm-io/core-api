@@ -1,10 +1,10 @@
 ﻿namespace SeedStorm.Core.Entities.Node
 {
-    public enum NodeState
+    public struct NodeState
     {
-        Idle,
-        Created,
-        Deployed,
-        Started
+        public const string Idle = "idle";
+        public const string Created = "created";
+        public const string Deployed = "deployed";
+        public const string Started = "started";
     }
 }

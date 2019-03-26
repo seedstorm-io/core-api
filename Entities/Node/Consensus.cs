@@ -1,9 +1,9 @@
 ﻿namespace SeedStorm.Core.Entities.Node
 {
-    public enum Consensus
+    public struct  Consensus
     {
-        ProofOfWork,
-        ProofOfStake,
-        ProofOfAuthority
+        public const string ProofOfWork = "PoW";
+        public const string ProofOfStake = "PoS";
+        public const string ProofOfAuthority = "PoA";
     }
 }

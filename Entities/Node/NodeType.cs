@@ -1,8 +1,8 @@
 ﻿namespace SeedStorm.Core.Entities.Node
 {
-    public enum NodeType
+    public struct NodeType
     {
-        FullNode,
-        MasterNode
+        public const string FullNode = "fullnode";
+        public const string MasterNode = "masternode";
     }
 }
