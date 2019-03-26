@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <RootNamespace>SeedStorm.CoreApi</RootNamespace>
-    <AssemblyName>core-api</AssemblyName>
+    <RootNamespace>SeedStorm.Core</RootNamespace>
+    <AssemblyName>SeedStorm.Core</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

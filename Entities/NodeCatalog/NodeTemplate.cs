@@ -1,11 +1,11 @@
-﻿using SeedStorm.CoreApi.Entities.Node;
+﻿using SeedStorm.Core.Entities.Node;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SeedStorm.CoreApi.Entities.NodeCatalog
+namespace SeedStorm.Core.Entities.NodeCatalog
 {
     public class NodeTemplate
     {
@@ -20,5 +20,6 @@ namespace SeedStorm.CoreApi.Entities.NodeCatalog
         public Consensus Consensus { get; set; }
         public DateTime AddTime { get; set; }
         public int Priority { get; set; }
+        public float HourlyCost { get; set; }
     }
 }

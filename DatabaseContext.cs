@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SeedStorm.CoreApi.Entities;
-using SeedStorm.CoreApi.Entities.Node;
-using SeedStorm.CoreApi.Entities.NodeCatalog;
+using SeedStorm.Core.Entities;
+using SeedStorm.Core.Entities.Node;
+using SeedStorm.Core.Entities.NodeCatalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SeedStorm.CoreApi
+namespace SeedStorm.Core
 {
     public class DatabaseContext : IdentityDbContext<ApplicationUser>
     {

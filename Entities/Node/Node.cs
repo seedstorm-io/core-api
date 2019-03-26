@@ -1,4 +1,4 @@
-﻿using SeedStorm.CoreApi.Entities.NodeCatalog;
+﻿using SeedStorm.Core.Entities.NodeCatalog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SeedStorm.CoreApi.Entities.Node
+namespace SeedStorm.Core.Entities.Node
 {
     public class Node
     {
