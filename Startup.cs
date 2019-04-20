@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +46,6 @@ namespace SeedStorm.Core
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<DatabaseContext>()
                 .AddDefaultTokenProviders();
-
 
             services.AddApiVersioning(o =>
             {
@@ -96,11 +96,22 @@ namespace SeedStorm.Core
 
             // services.AddTransient<IPasswordHasher<ApplicationUser>, BCryptPasswordHasher>();
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:8080"));
+            });
+
             services.AddMvc();
 
             services.AddSwaggerGen(c =>
             {
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
                 c.SwaggerDoc("v1", new Info
                 {
                     Title = "SeedStorm.io",
@@ -111,8 +122,15 @@ namespace SeedStorm.Core
                         Email = "contact@seedstorm.io",
                         Url = "https://seedstorm.io"
                     },
+                    License = new License
+                    {
+                        Name = "MIT License",
+                        Url = "https://github.com/seedstorm-io/core-api/blob/master/LICENSE.md"
+                    },
                     Version = "v1"
                 });
+                var filePath = Path.Combine(AppContext.BaseDirectory, "SeedStorm.Core.xml");
+                c.IncludeXmlComments(filePath);
             });
         }
 
@@ -124,22 +142,31 @@ namespace SeedStorm.Core
             }
             else
             {
-                app.UseHsts();
+                //app.UseHsts();
             }
+
+            app.UseCors(builder => {
+                //builder.WithOrigins("http://localhost:8080").all;
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+            });
+
+            app.UseStaticFiles();
 
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {
+                c.DocumentTitle = "SeedStorm.io Core API Swagger";
+                c.DisplayOperationId();
+                c.DisplayRequestDuration();
+                c.InjectStylesheet("/css/swagger.css");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SeedStorm.io Core Api");
             });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
             app.UseAuthentication();
 
             app.UseMvc();
