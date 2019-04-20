@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using SeedStorm.Core.Dtos;
 using SeedStorm.Core.Entities;
@@ -27,15 +28,20 @@ namespace seedstorm_core.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public AuthenticationController(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, ILogger<AuthenticationController> logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _logger = logger;
         }
 
+        /// <summary>
+        /// Authenticate the specified user with email and password
+        /// </summary>
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<ActionResult> AuthenticateAsync([FromBody]AuthDto AuthDto)
@@ -65,6 +71,9 @@ namespace seedstorm_core.Controllers
                     };
                     var token = tokenHandler.CreateToken(tokenDescriptor);
                     var tokenString = tokenHandler.WriteToken(token);
+
+                    _logger.LogInformation($"User {user.Email} sucessfully loggd");
+                    
                     return Ok(new
                     {
                         user.Email,
@@ -88,6 +97,9 @@ namespace seedstorm_core.Controllers
             return BadRequest(new { message = "This user does not exist" });
         }
 
+        /// <summary>
+        /// Register a new user
+        /// </summary>
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult> RegisterAsync([FromBody]AuthDto AuthDto)
@@ -101,11 +113,15 @@ namespace seedstorm_core.Controllers
             var response = await _userManager.CreateAsync(user, AuthDto.Password);
             if(response.Succeeded)
             {
+                _logger.LogInformation($"New user registred: {user.Email}");
                 return Ok();
             }
             return BadRequest(new { errors = response.Errors });
         }
 
+        /// <summary>
+        /// Get the current logged-in user
+        /// </summary>
         [HttpGet("get")]
         public async Task<ActionResult<ApplicationUser>> GetAsync()
         {
@@ -113,6 +129,9 @@ namespace seedstorm_core.Controllers
             return await GetAsync(userId);
         }
 
+        /// <summary>
+        /// Get a specific user by this ID
+        /// </summary>
         [Authorize(Roles = "Administrator")]
         [HttpGet("get/{id}")]
         public async Task<ActionResult<ApplicationUser>> GetAsync(string id)
@@ -120,6 +139,9 @@ namespace seedstorm_core.Controllers
             return await _userManager.FindByIdAsync(id);
         }
         
+        /// <summary>
+        /// Drop an user
+        /// </summary>
         [Authorize(Roles = "Administrator")]
         [HttpDelete("delete")]
         public async Task<ActionResult> DeleteAsync([FromBody]AuthDto AuthDto)
