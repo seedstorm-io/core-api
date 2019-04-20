@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SeedStorm.CoreApi;
-using SeedStorm.CoreApi.Entities.NodeCatalog;
+using SeedStorm.Core;
+using SeedStorm.Core.Entities.NodeCatalog;
 
-namespace core_api.Controllers
+namespace SeedStorm.Core.Controllers
 {
-    [Route("api/[controller]")]
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    // [Authorize]
+    [ApiVersion("1.0")]
+    [Route("api/node-templates")]
     [ApiController]
     public class NodeTemplatesController : ControllerBase
     {
@@ -21,14 +26,12 @@ namespace core_api.Controllers
             _context = context;
         }
 
-        // GET: api/NodeTemplates
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NodeTemplate>>> GetNodesCatalog()
         {
             return await _context.NodesCatalog.ToListAsync();
         }
 
-        // GET: api/NodeTemplates/5
         [HttpGet("{id}")]
         public async Task<ActionResult<NodeTemplate>> GetNodeTemplate(Guid id)
         {
@@ -42,7 +45,7 @@ namespace core_api.Controllers
             return nodeTemplate;
         }
 
-        // PUT: api/NodeTemplates/5
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNodeTemplate(Guid id, NodeTemplate nodeTemplate)
         {
@@ -72,7 +75,7 @@ namespace core_api.Controllers
             return NoContent();
         }
 
-        // POST: api/NodeTemplates
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<ActionResult<NodeTemplate>> PostNodeTemplate(NodeTemplate nodeTemplate)
         {
@@ -82,7 +85,7 @@ namespace core_api.Controllers
             return CreatedAtAction("GetNodeTemplate", new { id = nodeTemplate.Id }, nodeTemplate);
         }
 
-        // DELETE: api/NodeTemplates/5
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<NodeTemplate>> DeleteNodeTemplate(Guid id)
         {
