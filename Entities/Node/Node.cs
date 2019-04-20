@@ -15,6 +15,6 @@ namespace SeedStorm.Core.Entities.Node
         public string CommonName { get; set; }
         public int Owner { get; set; }
         public string Template { get; set; }
-        public NodeState State { get; set; }
+        public string State { get; set; }
     }
 }
