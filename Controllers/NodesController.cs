@@ -1,34 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SeedStorm.CoreApi;
-using SeedStorm.CoreApi.Entities.Node;
+using Newtonsoft.Json;
+using SeedStorm.Core;
+using SeedStorm.Core.Entities;
+using SeedStorm.Core.Entities.Node;
 
-namespace core_api.Controllers
+namespace SeedStorm.Core.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [ApiVersion("1.0")]
+    [Route("api/nodes")]
     [ApiController]
     public class NodesController : ControllerBase
     {
         private readonly DatabaseContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public NodesController(DatabaseContext context)
+        public NodesController(DatabaseContext context, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
-
-        // GET: api/Nodes
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Node>>> GetNodes()
         {
             return await _context.Nodes.ToListAsync();
         }
 
-        // GET: api/Nodes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Node>> GetNode(Guid id)
         {
@@ -42,7 +54,6 @@ namespace core_api.Controllers
             return node;
         }
 
-        // PUT: api/Nodes/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNode(Guid id, Node node)
         {
@@ -72,7 +83,6 @@ namespace core_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Nodes
         [HttpPost]
         public async Task<ActionResult<Node>> PostNode(Node node)
         {
@@ -82,7 +92,6 @@ namespace core_api.Controllers
             return CreatedAtAction("GetNode", new { id = node.Id }, node);
         }
 
-        // DELETE: api/Nodes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Node>> DeleteNode(Guid id)
         {
