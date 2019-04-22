@@ -334,3 +334,4 @@ bin/
 obj/
 appsettings*
 Migrations/
+*.xml
