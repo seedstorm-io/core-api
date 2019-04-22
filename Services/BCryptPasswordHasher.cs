@@ -2,7 +2,7 @@
 using SeedStorm.Core.Entities;
 using System;
 
-namespace SeedStorm.Core.Service
+namespace SeedStorm.Core.Services
 {
     public class BCryptPasswordHasher : IPasswordHasher<ApplicationUser>
     {
