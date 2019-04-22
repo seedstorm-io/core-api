@@ -12,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using SeedStorm.Core.Dtos;
 using SeedStorm.Core.Entities;
 
-namespace seedstorm_core.Controllers
+namespace SeedStorm.Core.Controllers
 {
     [Authorize]
     [ApiVersion("1.0")]

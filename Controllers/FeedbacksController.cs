@@ -9,7 +9,7 @@ using SeedStorm.Core;
 using SeedStorm.Core.Dtos;
 using SeedStorm.Core.Entities;
 
-namespace core_api.Controllers
+namespace SeedStorm.Core.Controllers
 {
     [Authorize]
     [Route("api/feedbacks")]

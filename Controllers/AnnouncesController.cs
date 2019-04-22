@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SeedStorm.Core.Entities;
 
-namespace seedstorm_core.Controllers
+namespace SeedStorm.Core.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/announces")]
