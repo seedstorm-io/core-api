@@ -3,10 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SeedStorm.Core.Entities;
 using SeedStorm.Core.Entities.Node;
 using SeedStorm.Core.Entities.NodeCatalog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SeedStorm.Core
 {
@@ -14,6 +10,7 @@ namespace SeedStorm.Core
     {
         public DbSet<Node> Nodes { get; set; }
         public DbSet<NodeTemplate> NodesCatalog { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         public DatabaseContext() : base()
         {
@@ -31,5 +28,6 @@ namespace SeedStorm.Core
         {
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }
