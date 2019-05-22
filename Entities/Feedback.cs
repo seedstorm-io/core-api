@@ -7,9 +7,9 @@ namespace SeedStorm.Core.Entities
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid Owner { get; set; }
         public DateTime PostDateTime { get; set; }
         public string Content { get; set; }
-        public string Username { get; set; }
         public string RemoteIp { get; set; }
     }
 }

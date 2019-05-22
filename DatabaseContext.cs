@@ -11,6 +11,7 @@ namespace SeedStorm.Core
         public DbSet<Node> Nodes { get; set; }
         public DbSet<NodeTemplate> NodesCatalog { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Cluster> Clusters { get; set; }
 
         public DatabaseContext() : base()
         {

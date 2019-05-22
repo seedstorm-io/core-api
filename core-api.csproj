@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="HostedService\" />
+    <Folder Include="HostedServices\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
 

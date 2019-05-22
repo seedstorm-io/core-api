@@ -11,7 +11,10 @@ namespace SeedStorm.Core.Entities.NodeCatalog
         public string Slug { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string MarkdownDescription { get; set; }
         public string Keywords { get; set; }
+        public string MaintainerInformations { get; set; }
+        public string RelatedLinks { get; set; }
         public string Icon { get; set; }
         public string Poster { get; set; }
         public string Version { get; set; }

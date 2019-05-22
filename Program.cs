@@ -19,7 +19,6 @@ namespace SeedStorm.Core
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://localhost:5000", "https://localhost:5001/")
                 .UseStartup<Startup>();
     }
 }
